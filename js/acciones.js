@@ -2,7 +2,20 @@
 $(document).ready(function(e) {
 document.addEventListener("deviceready",function(){
 	var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.bd", createFromLocation: 1});
-	audio = window.plugins.LowLatencyAudio;
+	function cargarnombrejugador()
+{
+	basedatos.transation(function(ejecutar){
+	var sql ="SELECT NombreUsuario FROM Usuario";
+	ejecutar.executeSql(sql,undefined,function(ejecutar,resultado){
+    var datosJugador=resultado.rows.item (0);
+	$('#jugador').text(datosJugador.NombreUsuario);
+	
+});
+});
+}
+	
+	
+audio = window.plugins.LowLatencyAudio;
 	audio.preloadFX ('B1','audio/C.mp3',function(){}, function(msg){ alert ("Error " + msg);});
 	
 	audio.preloadFX ('B2','audio/D.mp3',function(){}, function(msg){ alert ("Error " + msg);});
@@ -44,8 +57,6 @@ function quien(q)
 audio.play(q);
 return q.substring(1);
 }
-
-	
 	
 	
 });//cuadro
