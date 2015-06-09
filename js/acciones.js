@@ -1,7 +1,7 @@
 // JavaScript Document
 $(document).ready(function(e) {
 document.addEventListener("deviceready",function(){
-	var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.bd", createFromLocation: 1});
+	var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.db", createFromLocation: 1});
 	
 	cargarnombrejugador();
 	
