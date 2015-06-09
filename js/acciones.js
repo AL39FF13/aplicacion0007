@@ -2,8 +2,12 @@
 $(document).ready(function(e) {
 document.addEventListener("deviceready",function(){
 	var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.bd", createFromLocation: 1});
+	
+	cargarnombrejugador();
+	
 	function cargarnombrejugador()
 {
+	
 	basedatos.transation(function(ejecutar){
 	var sql ="SELECT NombreUsuario FROM Usuario";
 	ejecutar.executeSql(sql,undefined,function(ejecutar,resultado){
@@ -57,6 +61,19 @@ function quien(q)
 audio.play(q);
 return q.substring(1);
 }
+	
+$('#btnconfig').on('tap',function(){
+	$('#txtusuario').val($('#jugador').text());
+});
+	$('#btnguardar').on('tap',function(){
+	var nuevonombre=$('#txtusuario').val();
+	basedatos.transaction(function(consulta){
+		consulta.executeSql("UPDATE Usuario SET NombreUsuario=? WHERE ClaveUsuario ='1';",[nuevonombre]);
+	});
+		
+	cargarnombrejugador();	
+	});
+	
 	
 	
 });//cuadro
