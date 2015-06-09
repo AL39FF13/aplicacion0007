@@ -2,23 +2,14 @@
 $(document).ready(function(e) {
 document.addEventListener("deviceready",function(){
 	
-	audio = window.plugins.LowLatencyAudio;
-	audio.preloadFX ('B1','audio/C.mp3',function(){}, function(msg){ alert ("Error " + msg);});
-	
-	audio.preloadFX ('B2','audio/D.mp3',function(){}, function(msg){ alert ("Error " + msg);});
-	
-	audio.preloadFX ('B3','audio/E.mp3',function(){}, function(msg){ alert ("Error " + msg);});
-	
-	audio.preloadFX ('B4','audio/F.mp3',function(){}, function(msg){ alert ("Error " + msg);});
-	
-	var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.db", createFromLocation: 1});
+var basedatos=window.sqlitePlugin.opendDatabase({name: "ColoresBD.db", createFromLocation: 1});
 	
 	cargarnombrejugador();
 	
 	function cargarnombrejugador()
 {
 	
-	basedatos.transation(function(ejecutar){
+	basedatos.transaction(function(ejecutar){
 	var sql ="SELECT NombreUsuario FROM Usuario";
 	ejecutar.executeSql(sql,undefined,function(ejecutar,resultado){
     var datosJugador=resultado.rows.item (0);
@@ -46,7 +37,7 @@ $('#btnjugar').on ('tap',function(){
 	
 });//btnjugar
 
-
+/*
 $('.cuadro').on ('vmousedown', function(){
 	$(this).addClass('pulsado');
 	$('#pantalla').append(quien($(this).attr('id')));	
@@ -56,7 +47,7 @@ $('.cuadro').on ('vmousedown', function(){
 	$(this).removeClass('pulsado');	
     });	
 	
-
+*/
 
 function quien(q)
 { 
@@ -76,7 +67,16 @@ $('#btnconfig').on('tap',function(){
 	cargarnombrejugador();	
 	});
 	
-	
+function flash (boton)
+	{
+		boton.stop().animete({opacity:'0.5'},{
+			duration:80,
+			complete:function(){
+				boton.stop().animate({opacity:'1'},200);
+				
+	}
+      });
+    }
 	
 });//cuadro
 });
